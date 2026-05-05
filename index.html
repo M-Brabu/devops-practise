@@ -2,23 +2,39 @@
 <html>
 <head>
   <title>To-Do</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h3>Simple To-Do</h3>
+<!-- LOGIN -->
+<div id="login">
+  <h3>Login</h3>
 
-<input id="input" placeholder="Enter task">
-<button onclick="todo()">Add</button>
+  <input id="user" placeholder="Username">
+  <input id="pass" type="password" placeholder="Password">
+  <br>
+  <button onclick="login()">Login</button>
 
-<br><br>
+  <p id="error"></p>
+</div>
 
-<button onclick="show('all')">All</button>
-<button onclick="show('done')">Completed</button>
-<button onclick="show('todo')">Incomplete</button>
+<!-- APP -->
+<div id="app" style="display:none;">
+  <h3>Simple To-Do</h3>
 
-<br><br>
+  <input id="input" placeholder="Enter task">
+  <button onclick="todo()">Add</button>
 
-<div id="task"></div>
+  <br><br>
+
+  <button onclick="show('all')">All</button>
+  <button onclick="show('done')">Completed</button>
+  <button onclick="show('todo')">Incomplete</button>
+
+  <br><br>
+
+  <div id="task"></div>
+</div>
 
 <script src="script.js"></script>
 </body>

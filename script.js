@@ -1,5 +1,18 @@
 var filter = "all";
 
+// LOGIN
+function login(){
+  var u = document.getElementById("user").value;
+  var p = document.getElementById("pass").value;
+
+  if(u=="admin" && p=="1234"){
+    document.getElementById("login").style.display="none";
+    document.getElementById("app").style.display="block";
+  } else {
+    document.getElementById("error").innerText="Wrong login";
+  }
+}
+
 // ADD TASK
 function todo(){ 
   var input = document.getElementById("input"); 
@@ -15,7 +28,7 @@ function todo(){
   var task = document.getElementById("task"); 
 
   var html = `
-  <fieldset data-done="false" style="margin:5px;">
+  <fieldset data-done="false">
     <h3>${val}</h3>
     <button onclick="doner(event)">done</button>
     <button onclick="undoer(event)">undo</button>
@@ -48,7 +61,7 @@ function deleter(e){
   e.target.closest("fieldset").remove();
 }
 
-// FILTER BUTTON
+// FILTER
 function show(type){
   filter = type;
   applyFilter();
