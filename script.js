@@ -1,44 +1,73 @@
-let tasks = [];
-
-// LOGIN
-function login() {
-  let user = document.getElementById("username").value;
-  let pass = document.getElementById("password").value;
-
-  if (user === "brabu" && pass === "1234") {
-    document.getElementById("loginPage").classList.add("hidden");
-    document.getElementById("appPage").classList.remove("hidden");
-  } else {
-    document.getElementById("error").innerText = "Wrong login!";
-  }
-}
+var filter = "all";
 
 // ADD TASK
-function addTask() {
-  let input = document.getElementById("taskInput");
+function todo(){ 
+  var input = document.getElementById("input"); 
+  var val = input.value;
 
-  if (input.value === "") return;
+  if(val==""){
+    alert("enter task");
+    return;
+  }
 
-  tasks.push(input.value);
-  input.value = "";
+  input.value="";
 
-  loadTasks();
+  var task = document.getElementById("task"); 
+
+  var html = `
+  <fieldset data-done="false" style="margin:5px;">
+    <h3>${val}</h3>
+    <button onclick="doner(event)">done</button>
+    <button onclick="undoer(event)">undo</button>
+    <button onclick="deleter(event)">delete</button>
+  </fieldset>`;
+
+  task.innerHTML += html;
+
+  applyFilter();
 }
 
-// LOAD TASKS
-function loadTasks() {
-  let list = document.getElementById("list");
-  list.innerHTML = "";
+// DONE
+function doner(e){ 
+  var box = e.target.closest("fieldset");
+  box.querySelector("h3").style.textDecoration="line-through";
+  box.setAttribute("data-done","true");
+  applyFilter();
+}
 
-  tasks.forEach((task, index) => {
-    let li = document.createElement("li");
-    li.innerText = task;
+// UNDO
+function undoer(e){
+  var box = e.target.closest("fieldset");
+  box.querySelector("h3").style.textDecoration="";
+  box.setAttribute("data-done","false");
+  applyFilter();
+}
 
-    li.onclick = () => {
-      tasks.splice(index, 1);
-      loadTasks();
-    };
+// DELETE
+function deleter(e){ 
+  e.target.closest("fieldset").remove();
+}
 
-    list.appendChild(li);
+// FILTER BUTTON
+function show(type){
+  filter = type;
+  applyFilter();
+}
+
+// APPLY FILTER
+function applyFilter(){
+  var all = document.querySelectorAll("#task fieldset");
+
+  all.forEach(function(box){
+    var done = box.getAttribute("data-done");
+
+    if(
+      (filter=="done" && done!="true") ||
+      (filter=="todo" && done=="true")
+    ){
+      box.style.display="none";
+    } else {
+      box.style.display="block";
+    }
   });
 }
